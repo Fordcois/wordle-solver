@@ -2,6 +2,7 @@
 import React, { useState, useMemo } from 'react';
 import wordlistArr from '@/resources/wordlist';
 import UserLetterSquare from './userlettersquare';
+import relevantSort from '@/resources/relevant_sort';
 
 const SolvrIndex: React.FC = () => {
 
@@ -90,12 +91,15 @@ const ProcessUserWord =()=>{
     };
 };
 
-const countUniqueLetters = (word:string) => {
-    const uniqueLetters = new Set(word.toLowerCase());
-    return uniqueLetters.size;
-    };
+
     
-    const sortedWords = remainingOptions.sort((a, b) => countUniqueLetters(b) - countUniqueLetters(a));
+const sortedWords = useMemo(() => {
+    return relevantSort(remainingOptions);
+  }, [remainingOptions]);
+    
+    
+
+
 
     
 return (
@@ -130,6 +134,7 @@ return (
                 </div>
             )}
 
+My next guess is <b>{sortedWords[0]}</b><br/>
 
     <br/>
     There are currently <b>{sortedWords.length}</b> remaining options<br/>
