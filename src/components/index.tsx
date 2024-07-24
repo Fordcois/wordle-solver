@@ -9,11 +9,11 @@ type LetterInfo = {letter: string;colour: string;};
 type UserWordState = {[key: number]: LetterInfo;};
 
 const [userWord, setUserWord] = useState<UserWordState>({
-    0: { letter: 'a', colour: 'gray' },
-    1: { letter: 'b', colour: 'gray' },
-    2: { letter: 'c', colour: 'gray' },
-    3: { letter: 'd', colour: 'gray' },
-    4: { letter: 'e', colour: 'gray' },
+    0: { letter: 'a', colour: 'grey' },
+    1: { letter: 'b', colour: 'grey' },
+    2: { letter: 'c', colour: 'grey' },
+    3: { letter: 'd', colour: 'grey' },
+    4: { letter: 'e', colour: 'grey' },
 });
 
 const ChangeUserLetter = (indexToChange: number, newColour: string, newLetter: string) => {
