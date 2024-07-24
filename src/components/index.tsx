@@ -16,6 +16,14 @@ const [userWord, setUserWord] = useState<UserWordState>({
     4: { letter: 'e', colour: 'grey' },
 });
 
+const [previousGuesses,setpreviousGuesses] = useState<UserWordState[]>([])
+
+const addToPreviousGuessList = (guess:UserWordState) =>{
+    let newGuessArray = [...previousGuesses];
+    newGuessArray.push(guess)
+    setpreviousGuesses(newGuessArray)
+}
+
 const ChangeUserLetter = (indexToChange: number, newColour: string, newLetter: string) => {
     setUserWord(prevState => ({...prevState, 
     [indexToChange]: {letter: newLetter,colour: newColour},
@@ -76,6 +84,7 @@ const processLetter = (index: number, letter: string, colour: string) => {
 
 
 const ProcessUserWord =()=>{
+    addToPreviousGuessList(userWord);
     for (let i = 0; i < 5; i++) {
         processLetter(i,userWord[i].letter,userWord[i].colour)
     };
@@ -88,7 +97,7 @@ const countUniqueLetters = (word:string) => {
     
     const sortedWords = remainingOptions.sort((a, b) => countUniqueLetters(b) - countUniqueLetters(a));
 
-
+    
 return (
     <div>
     
@@ -106,6 +115,20 @@ return (
     <br/>
     <button onClick={()=>ProcessUserWord()}>Process Current Word</button>
     <br/>
+    {previousGuesses.length > 0 && (
+                <div>
+                    <b>Previous Guesses</b>
+                    {previousGuesses.map((guess, index) => (
+                        <div key={index}>
+                            <span style={{ color: guess[0].colour }}> {guess[0].letter} </span>
+                            <span style={{ color: guess[1].colour }}> {guess[1].letter}</span>
+                            <span style={{ color: guess[2].colour }}> {guess[2].letter}</span>
+                            <span style={{ color: guess[3].colour }}> {guess[3].letter}</span>
+                            <span style={{ color: guess[4].colour }}> {guess[4].letter}</span>
+                        </div>
+                    ))}
+                </div>
+            )}
 
 
     <br/>
