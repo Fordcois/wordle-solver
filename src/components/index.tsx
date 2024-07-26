@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useMemo } from 'react';
+import dynamic from "next/dynamic";
 import wordlistArr from '@/resources/wordlist';
 import UserLetterSquare from './userlettersquare';
 import relevantSort from '@/resources/relevant_sort';
@@ -11,7 +12,9 @@ const SolvrIndex: React.FC = () => {
 type LetterInfo = {letter: string;colour: string;};
 type UserWordState = {[key: number]: LetterInfo;};
 
-const [answersToShow,setanswersToShow] = useState<number>(10)
+const [answersToShow,setanswersToShow] = useState<number>(0);
+
+
 
 const [userWord, setUserWord] = useState<UserWordState>({
     0: { letter: 'a', colour: 'grey' },
@@ -89,10 +92,16 @@ const processLetter = (index: number, letter: string, colour: string) => {
 
 
 const ProcessUserWord =()=>{
-    addToPreviousGuessList(userWord);
+const submittedWord:string =  [userWord[0].letter,userWord[1].letter, userWord[2].letter,userWord[3].letter, userWord[4].letter].join('')
+if (sortedWords.includes(submittedWord ))
+{    addToPreviousGuessList(userWord);
     for (let i = 0; i < 5; i++) {
         processLetter(i,userWord[i].letter,userWord[i].colour)
-    };
+    };}
+else {
+    //TODO - Show an error Message if word enter is invalid
+    console.log(submittedWord, 'is invalid')
+}
 };
 
 
@@ -105,16 +114,25 @@ const groupedWords = useMemo(()=>{
     return groupAnagrams(sortedWords)
 },[sortedWords])
 
+
     
+const ShowMoreAnswers=(showExtra:number) => {
+    if (answersToShow+showExtra < groupedWords.length){setanswersToShow(answersToShow+showExtra)}
+    else {setanswersToShow(groupedWords.length)}
+}
 
+const setWordToAnswer=(newWord:string)=>{
+    console.log('FunctionRun')
+    for (let i = 0; i < 5; i++) {
+        ChangeUserLetter(i,userWord[i].colour,newWord[i])
+    }
 
+}
 
     
 return (
     <div>
     
-    
-
     <div style={{display:'flex'}}>
         <UserLetterSquare letter={userWord[0].letter} index={0} ChangeUserLetter={ChangeUserLetter} colour={userWord[0].colour} />
         <UserLetterSquare letter={userWord[1].letter} index={1} ChangeUserLetter={ChangeUserLetter} colour={userWord[1].colour} />
@@ -142,15 +160,20 @@ return (
                 </div>
             )}
 
-My next guess is <b>{sortedWords[0]}</b><br/>
 
 
-    <br/>
-    There are currently <b>{sortedWords.length}</b> remaining options<br/>
+{groupedWords[0].length !== 1? 'Top Suggestions':'Top Suggestion'}
+<PossibleAnswer wordlist={groupedWords[0]} listmode={false} setWordToAnswer={setWordToAnswer}/>
 
-{groupedWords.map((group, index) => (
-        <PossibleAnswer key={index} wordlist={group}/>
+<br/>
+There are currently <b>{sortedWords.length}</b> remaining options<br/>
+
+{groupedWords.slice(1,answersToShow).map((group, index) => (
+        <PossibleAnswer key={index} wordlist={group} listmode={true} setWordToAnswer={setWordToAnswer}/>
       ))}
+<br/>
+<button onClick={()=>ShowMoreAnswers(10)}>Show Next Ten</button>
+<button onClick={()=>setWordToAnswer('words')}>set Answer to Words</button>
 
 
 
@@ -160,5 +183,6 @@ My next guess is <b>{sortedWords[0]}</b><br/>
 
 };
 
-export default SolvrIndex;
+
+export default dynamic (() => Promise.resolve(SolvrIndex), {ssr: false})
 

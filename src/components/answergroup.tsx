@@ -1,23 +1,27 @@
 import React from "react";
 
+type setWordToAnswer = (newWord:string) => void;
 // Define props type
 interface PossibleAnswerProps {
     wordlist: string[];
+    listmode: boolean;
+    setWordToAnswer: setWordToAnswer;
 }
 
+
+
 // Use the defined props type
-const PossibleAnswer: React.FC<PossibleAnswerProps> = ({ wordlist }) => {
-const length = wordlist.length;
-const othersMessage = length >= 3 ? 'others' : 'other';
+const PossibleAnswer: React.FC<PossibleAnswerProps> = ({ wordlist, listmode,setWordToAnswer }) => {
+    const length = wordlist.length;
+    const othersMessage = length >= 3 ? 'others' : 'other';
+
+
 
     return (
-<div>
-    {
-    length <= 2 ? (wordlist.join(' or ')) : 
-    (<span>{wordlist[0]} and {length - 1} {othersMessage}</span>)
-    }
-</div>
-);
+        <div>
+            <span onClick={()=>setWordToAnswer(wordlist[0]) }>{wordlist[0]}</span>
+        </div>
+    );
 };
 
 export default PossibleAnswer;
