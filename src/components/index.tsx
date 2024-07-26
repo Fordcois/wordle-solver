@@ -3,17 +3,21 @@ import React, { useState, useMemo } from 'react';
 import wordlistArr from '@/resources/wordlist';
 import UserLetterSquare from './userlettersquare';
 import relevantSort from '@/resources/relevant_sort';
+import groupAnagrams from '@/resources/anagram_grouper';
+import PossibleAnswer from './answergroup';
 
 const SolvrIndex: React.FC = () => {
 
 type LetterInfo = {letter: string;colour: string;};
 type UserWordState = {[key: number]: LetterInfo;};
 
+const [answersToShow,setanswersToShow] = useState<number>(10)
+
 const [userWord, setUserWord] = useState<UserWordState>({
     0: { letter: 'a', colour: 'grey' },
-    1: { letter: 'b', colour: 'grey' },
-    2: { letter: 'c', colour: 'grey' },
-    3: { letter: 'd', colour: 'grey' },
+    1: { letter: 'r', colour: 'grey' },
+    2: { letter: 'o', colour: 'grey' },
+    3: { letter: 's', colour: 'grey' },
     4: { letter: 'e', colour: 'grey' },
 });
 
@@ -97,6 +101,10 @@ const sortedWords = useMemo(() => {
     return relevantSort(remainingOptions);
   }, [remainingOptions]);
     
+const groupedWords = useMemo(()=>{
+    return groupAnagrams(sortedWords)
+},[sortedWords])
+
     
 
 
@@ -136,13 +144,16 @@ return (
 
 My next guess is <b>{sortedWords[0]}</b><br/>
 
+
     <br/>
     There are currently <b>{sortedWords.length}</b> remaining options<br/>
-    {sortedWords.length !== 12972 && 
-        sortedWords.map((word, index) => (
-            <div key={index}>{word}</div>
-                                        ))
-    }
+
+{groupedWords.map((group, index) => (
+        <PossibleAnswer key={index} wordlist={group}/>
+      ))}
+
+
+
     </div>
     );
 
