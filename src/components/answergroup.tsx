@@ -1,25 +1,32 @@
 import React from "react";
 
-type setWordToAnswer = (newWord:string) => void;
+// Define the type for the setWordToAnswer function
+type SetWordToAnswer = (newWord: string) => void;
+
 // Define props type
 interface PossibleAnswerProps {
     wordlist: string[];
     listmode: boolean;
-    setWordToAnswer: setWordToAnswer;
+    setWordToAnswer: SetWordToAnswer;
 }
 
-
-
 // Use the defined props type
-const PossibleAnswer: React.FC<PossibleAnswerProps> = ({ wordlist, listmode,setWordToAnswer }) => {
+const PossibleAnswer: React.FC<PossibleAnswerProps> = ({ wordlist, listmode, setWordToAnswer }) => {
     const length = wordlist.length;
-    const othersMessage = length >= 3 ? 'others' : 'other';
 
+    // Determine the correct grammatical term based on the number of words
 
 
     return (
-        <div>
-            <span onClick={()=>setWordToAnswer(wordlist[0]) }>{wordlist[0]}</span>
+        <div style={{ whiteSpace: 'nowrap' }}>
+            {wordlist.map((word, index) => (
+                <React.Fragment key={index}>
+                    <span onClick={() => setWordToAnswer(word)} >
+                        {word}
+                    </span>
+                    {index < wordlist.length - 1 && ', '}
+                </React.Fragment>
+            ))}
         </div>
     );
 };

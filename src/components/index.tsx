@@ -122,7 +122,6 @@ const ShowMoreAnswers=(showExtra:number) => {
 }
 
 const setWordToAnswer=(newWord:string)=>{
-    console.log('FunctionRun')
     for (let i = 0; i < 5; i++) {
         ChangeUserLetter(i,userWord[i].colour,newWord[i])
     }
