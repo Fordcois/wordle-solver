@@ -1,0 +1,92 @@
+@import url("https://fonts.googleapis.com/css2?family=Oswald&display=swap");
+
+:root {
+--TitleFont:  --MainFont: "Oswald", sans-serif;
+--LetterFont: 'Helvetica Neue', Arial, sans-serif;
+--Green: rgb(123,182,119);
+--Yellow: rgb(211,191,107);
+--Grey:  rgb(139,143,145);
+}
+
+.container {
+    background-color: aqua;
+    min-width: 320px;
+    height: 95vh;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center; 
+}
+
+@media (min-width: 475px) {
+    .container {
+        background-color: aquamarine;
+        max-width: 475px;
+    }
+}
+@media (min-width: 640px) {
+    .container {
+        background-color: lightblue;
+        max-width: 640px;
+    }
+}
+@media (min-width: 768px) {
+    .container {
+        background-color: lightgreen;
+        max-width: 768px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .container {
+        background-color: lightcoral;
+        max-width: 1024px;
+    }
+}
+
+@media (min-width: 1280px) {
+    .container {
+        background-color: lightgoldenrodyellow;
+        max-width: 1280px;
+    }
+}
+
+.Title{
+    font-family: var(--LetterFont);
+    text-transform: uppercase;
+    color: var(--Grey);
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.letterBox-Container{
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+text-align: center;
+}
+
+.letterBox{
+    margin-right: 5px;
+    width: 57px;
+    height: 57px;
+    color: white;
+    text-transform: uppercase;
+    font-size: 32px;
+    text-align: center;
+    border: none;
+    font-weight: 700;
+}
+
+.letterBox:focus {
+    outline: none; /* Hides the default focus outline */
+    box-shadow: 0 0 0 2px black; /* Adds a custom black outline using box-shadow */
+}
+.footer {
+    margin-top: auto;
+    text-align: center; 
+    color: var(--Grey);
+}

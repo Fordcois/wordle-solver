@@ -11,7 +11,7 @@ interface UserLetterSquareProps {
 
 const UserLetterSquare: React.FC<UserLetterSquareProps> = ({letter,index,ChangeUserLetter,colour,}) => {
 
-const coloursArr = ["green", "yellow", "grey"];
+const coloursArr = ['var(--Green)', 'var(--Yellow)', 'var(--Grey)'];
 const changeColour = () => {
     let CurrentcolourIndex = coloursArr.indexOf(colour);
     if (CurrentcolourIndex + 1 > 2) {
@@ -22,24 +22,10 @@ const changeColour = () => {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        textAlign: "center",
-      }}
-    >
+    <div className="letterBox-Container">
       <input
-        style={{
-          backgroundColor: colour,
-          border: "2px solid black",
-          padding: "5px",
-          width: "20px",
-          height: "20px",
-          textAlign: "center",
-        }}
+      className="letterBox"
+      style={{ backgroundColor: colour }}
         type="text"
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           ChangeUserLetter(index, colour, e.target.value)
@@ -48,7 +34,6 @@ const changeColour = () => {
         value={letter}
       />
       <span style={{backgroundColor: colour,width: "15px",height: "15px",borderRadius: "15px",marginTop: "5px",}} onClick={changeColour}>
-
     </span>
     </div>
   );

@@ -6,6 +6,8 @@ import UserLetterSquare from './userlettersquare';
 import relevantSort from '@/resources/relevant_sort';
 import groupAnagrams from '@/resources/anagram_grouper';
 import PossibleAnswer from './answergroup';
+import Header from './Header';
+import Footer from './footer';
 
 const SolvrIndex: React.FC = () => {
 
@@ -23,11 +25,11 @@ const flashErrorMessage = (message: string) => {
 
 
 const [userWord, setUserWord] = useState<UserWordState>({
-    0: { letter: 'a', colour: 'grey' },
-    1: { letter: 'r', colour: 'grey' },
-    2: { letter: 'o', colour: 'grey' },
-    3: { letter: 's', colour: 'grey' },
-    4: { letter: 'e', colour: 'grey' },
+    0: { letter: 'a', colour: 'var(--Grey)' },
+    1: { letter: 'r', colour: 'var(--Grey)' },
+    2: { letter: 'o', colour: 'var(--Grey)' },
+    3: { letter: 's', colour: 'var(--Grey)' },
+    4: { letter: 'e', colour: 'var(--Grey)' },
 });
 
 const [previousGuesses,setpreviousGuesses] = useState<UserWordState[]>([])
@@ -70,12 +72,12 @@ const processLetter = (index: number, letter: string, colour: string) => {
     const newOptions = { ...prevOptions };
      // If letter is match in position
         // remove all over letters from that indexlist
-    if (colour === 'green') {
+    if (colour === 'var(--Green)') {
         newOptions[index] = [letter];
     };
     // If Letter is a match but not at that positon
         // remove from current index
-    if (colour === 'yellow') {
+    if (colour === 'var(--Yellow)') {
         const indexToRemove = newOptions[index].indexOf(letter);
         if (indexToRemove > -1) {
         newOptions[index].splice(indexToRemove, 1);
@@ -88,7 +90,7 @@ const processLetter = (index: number, letter: string, colour: string) => {
         }};
     // if letter not in word
             // Remove from all options Lists if not already removed
-    if (colour === 'grey') {
+    if (colour === 'var(--Grey)') {
         for (let i = 0; i < 5; i++) {
         const indexToRemove = newOptions[i].indexOf(letter);
         if (indexToRemove > -1) {newOptions[i].splice(indexToRemove, 1);}
@@ -135,7 +137,8 @@ const setWordToAnswer=(newWord:string)=>{
 
     
 return (
-    <div className='Container'>
+    <div className='container'>
+    <Header/>
     {errorMessage}
     <div style={{display:'flex'}}>
         <UserLetterSquare letter={userWord[0].letter} index={0} ChangeUserLetter={ChangeUserLetter} colour={userWord[0].colour} />
@@ -181,7 +184,7 @@ There are currently <b>{sortedWords.length}</b> remaining options<br/>
 <button onClick={()=>flashErrorMessage('ERROR')}>Try Error</button><br/>
 
 
-
+<Footer/>
     </div>
     );
 
