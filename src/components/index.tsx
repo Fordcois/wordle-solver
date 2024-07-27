@@ -13,6 +13,12 @@ type LetterInfo = {letter: string;colour: string;};
 type UserWordState = {[key: number]: LetterInfo;};
 
 const [answersToShow,setanswersToShow] = useState<number>(0);
+const [errorMessage,setErrorMessage] = useState<string>("");
+
+const flashErrorMessage = (message: string) => {
+    setErrorMessage(message);
+    setTimeout(() => setErrorMessage(''), 1250);
+}
 
 
 
@@ -99,8 +105,7 @@ if (sortedWords.includes(submittedWord ))
         processLetter(i,userWord[i].letter,userWord[i].colour)
     };}
 else {
-    //TODO - Show an error Message if word enter is invalid
-    console.log(submittedWord, 'is invalid')
+    flashErrorMessage('Invalid Word')
 }
 };
 
@@ -130,8 +135,8 @@ const setWordToAnswer=(newWord:string)=>{
 
     
 return (
-    <div>
-    
+    <div className='Container'>
+    {errorMessage}
     <div style={{display:'flex'}}>
         <UserLetterSquare letter={userWord[0].letter} index={0} ChangeUserLetter={ChangeUserLetter} colour={userWord[0].colour} />
         <UserLetterSquare letter={userWord[1].letter} index={1} ChangeUserLetter={ChangeUserLetter} colour={userWord[1].colour} />
@@ -171,8 +176,9 @@ There are currently <b>{sortedWords.length}</b> remaining options<br/>
         <PossibleAnswer key={index} wordlist={group} listmode={true} setWordToAnswer={setWordToAnswer}/>
       ))}
 <br/>
-<button onClick={()=>ShowMoreAnswers(10)}>Show Next Ten</button>
+<button onClick={()=>ShowMoreAnswers(10)}>Show Next Ten</button><br/>
 <button onClick={()=>setWordToAnswer('words')}>set Answer to Words</button>
+<button onClick={()=>flashErrorMessage('ERROR')}>Try Error</button><br/>
 
 
 
