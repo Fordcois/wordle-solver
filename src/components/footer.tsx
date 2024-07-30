@@ -16,7 +16,7 @@ return (
     <span className="tooltiptext">Check Out my Github</span>
   </span>
   <span className="Footerlink">
-    <a href="https://yourwebsite.com" target="_blank" rel="noopener noreferrer"><FaGlobeEurope className="FooterReactIcon"/></a>
+    <a href="https://www.samueljford.com/" target="_blank" rel="noopener noreferrer"><FaGlobeEurope className="FooterReactIcon"/></a>
     <span className="tooltiptext">Visit my Website</span>
   </span>
   <span className="Footerlink">
