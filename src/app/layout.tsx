@@ -5,8 +5,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Wordle Solver",
-  description: "Struggle with Wordle? Cheat!",
+  title: "Solvr: Wordle Solver",
+  description: "Struggle with Wordle? We've got you covered!",
 };
 
 export default function RootLayout({
