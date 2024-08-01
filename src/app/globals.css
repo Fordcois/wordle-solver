@@ -9,8 +9,7 @@
 }
 
 .container {
-    background-color: aqua;
-    min-width: 340px;
+    width: 350px;
     height: 95vh;
     margin-left: auto;
     margin-right: auto;
@@ -18,40 +17,10 @@
     flex-direction: column;
     align-items: center;
     text-align: center; 
+    border-radius: 25px;
+    box-shadow: rgba(149, 157, 165, 0.1) 0px 8px 24px;
 }
 
-@media (min-width: 475px) {
-    .container {
-        background-color: aquamarine;
-        max-width: 475px;
-    }
-}
-@media (min-width: 640px) {
-    .container {
-        background-color: lightblue;
-        max-width: 640px;
-    }
-}
-@media (min-width: 768px) {
-    .container {
-        background-color: lightgreen;
-        max-width: 768px;
-    }
-}
-
-@media (min-width: 1024px) {
-    .container {
-        background-color: lightcoral;
-        max-width: 1024px;
-    }
-}
-
-@media (min-width: 1280px) {
-    .container {
-        background-color: lightgoldenrodyellow;
-        max-width: 1280px;
-    }
-}
 
 .Title{
     font-family: var(--LetterFont);
@@ -128,4 +97,42 @@ text-align: center;
   .FooterReactIcon:hover {
     color: var(--Green);
   }
+
+  .PopUpReactIcon {
+    color: var(--Grey);
+  }
   
+  .PopUpReactIcon:hover {
+    color: var(--Yellow);
+  }
+  
+
+  /* PopUp Window */
+  .PopUpShade {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+  }
+  
+  .PopUpWindow {
+    background-color: aliceblue;
+    z-index: 1001;
+    width: 300px;
+    text-align: center; 
+    border-radius: 10px;
+    box-shadow: rgba(149, 157, 165, 0.1) 0px 8px 24px;
+    padding: 20px;
+}
+
+.PopUpWindow p{
+    color: var(--Grey);
+    text-align: justify;
+    padding: 10px;
+}

@@ -1,9 +1,15 @@
 'use client'
 import React, { useEffect, useState } from "react";
+import { FaQuestionCircle } from "react-icons/fa";
 
 const colors = ['var(--Grey)', 'var(--Yellow)', 'var(--Green)'];
 
-const Header: React.FC = () => {
+type setshowHelpPopUp = (show: boolean) => void;
+interface HeaderProps {
+  setshowHelpPopUp: setshowHelpPopUp;
+}
+
+const Header: React.FC<HeaderProps> = ({setshowHelpPopUp}) => {
   const [letters, setLetters] = useState([
     { char: 'S', color: 'var(--Green)' },
     { char: 'o', color: 'var(--Grey)' },
@@ -27,10 +33,15 @@ const Header: React.FC = () => {
   }, []);
 
   return (
-    <div className="Title">
+    <div style={{width:'100%'}}>
+    
+      <div style={{textAlign:'right'}}><FaQuestionCircle className="PopUpReactIcon" onClick={()=>setshowHelpPopUp(true)}/></div>
+      
+     <div className="Title"> 
       {letters.map((letter, index) => (
         <span key={index} style={{ color: letter.color }}>{letter.char}</span>
       ))}
+    </div>
     </div>
   );
 };

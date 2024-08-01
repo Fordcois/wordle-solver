@@ -6,6 +6,7 @@ import UserLetterSquare from './userlettersquare';
 import relevantSort from '@/resources/relevant_sort';
 import groupAnagrams from '@/resources/anagram_grouper';
 import PossibleAnswer from './answergroup';
+import HowToPopUp from './HowToPopUp';
 import Header from './Header';
 import Footer from './footer';
 
@@ -13,6 +14,8 @@ const SolvrIndex: React.FC = () => {
 
 type LetterInfo = {letter: string;colour: string;};
 type UserWordState = {[key: number]: LetterInfo;};
+
+const [showHelpPopUp,setshowHelpPopUp] = useState<Boolean>(false);
 
 const [answersToShow,setanswersToShow] = useState<number>(0);
 const [errorMessage,setErrorMessage] = useState<string>("");
@@ -138,7 +141,9 @@ const setWordToAnswer=(newWord:string)=>{
     
 return (
     <div className='container'>
-    <Header/>
+    {showHelpPopUp && <HowToPopUp setshowHelpPopUp={setshowHelpPopUp} />}
+    
+    <Header setshowHelpPopUp={setshowHelpPopUp}/>
     {errorMessage}
     <div style={{display:'flex'}}>
         <UserLetterSquare letter={userWord[0].letter} index={0} ChangeUserLetter={ChangeUserLetter} colour={userWord[0].colour} />
@@ -177,11 +182,13 @@ There are currently <b>{sortedWords.length}</b> remaining options<br/>
 
 {groupedWords.slice(1,answersToShow).map((group, index) => (
         <PossibleAnswer key={index} wordlist={group} listmode={true} setWordToAnswer={setWordToAnswer}/>
-      ))}
+    ))}
 <br/>
-<button onClick={()=>ShowMoreAnswers(10)}>Show Next Ten</button><br/>
+<button onClick={()=>ShowMoreAnswers(10)}>Show Next Ten</button>
+<br/>
 <button onClick={()=>setWordToAnswer('words')}>set Answer to Words</button>
-<button onClick={()=>flashErrorMessage('ERROR')}>Try Error</button><br/>
+<button onClick={()=>flashErrorMessage('ERROR')}>Try Error</button>
+<br/>
 
 
 <Footer/>
