@@ -6,25 +6,19 @@ type SetWordToAnswer = (newWord: string) => void;
 // Define props type
 interface PossibleAnswerProps {
     wordlist: string[];
-    listmode: boolean;
     setWordToAnswer: SetWordToAnswer;
 }
 
 // Use the defined props type
-const PossibleAnswer: React.FC<PossibleAnswerProps> = ({ wordlist, listmode, setWordToAnswer }) => {
-    const length = wordlist.length;
-
-    // Determine the correct grammatical term based on the number of words
-
+const PossibleAnswer: React.FC<PossibleAnswerProps> = ({ wordlist,setWordToAnswer}) => {
 
     return (
-        <div style={{ whiteSpace: 'nowrap' }}>
+        <div className='possible-options-container' >
             {wordlist.map((word, index) => (
                 <React.Fragment key={index}>
-                    <span onClick={() => setWordToAnswer(word)} >
+                    <span className='sugested-word' onClick={() => setWordToAnswer(word)} >
                         {word}
                     </span>
-                    {index < wordlist.length - 1 && ', '}
                 </React.Fragment>
             ))}
         </div>

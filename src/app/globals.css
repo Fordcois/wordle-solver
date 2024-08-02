@@ -31,11 +31,9 @@ body{
 .headerContainer{
   position: relative; /* Establishes a positioning context for absolute positioning */
   display: flex;
-  justify-content: center;
   align-items: center;
   display: flex;
   justify-content: space-between; 
-  align-items: center;
   width: 100%; 
 }
 
@@ -104,6 +102,7 @@ body{
 .button-Green:hover{
   background-color: rgb(111,164,107);
   color: #fff;
+  cursor: pointer;
 }
 .button-Green:active{
   box-shadow: rgba(0, 0, 0, .2) 3px 3px 5px;
@@ -205,20 +204,23 @@ body{
   animation: shake 0.15s;
 }
 
-@keyframes flip {
-  0% {
-    transform: scaleY(1);
-  }
-  50% {
-    background: white;
-    transform: scaleY(0);
-  }
-  100% {
-    transform: scaleY(1);
-    background: green;
-  }
+.possible-options-container{
+  display: flex;
+  padding: 2px;
 }
 
-.flip {
-  animation: flip 500ms ease forwards;
+
+.sugested-word{
+  background-color: var(--Grey);
+  color: #fff;
+  margin:  0px 2px;
+  padding:  0px 10px;
+  border-radius: 20px;
+  text-transform: capitalize;
+  font-weight: 500;
+  cursor: pointer;
+}
+.sugested-word:hover{
+  background-color: var(--Green);
+
 }

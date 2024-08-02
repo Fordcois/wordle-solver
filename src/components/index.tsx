@@ -159,7 +159,6 @@ return (
     <button className='button-Green' onClick={()=>ProcessUserWord()}>submit word</button>
 
     {previousGuesses.length > 0 && (
-    
     <div>
         <b>Previous Guesses</b>
         {previousGuesses.map((guess, index) => (
@@ -174,22 +173,17 @@ return (
     </div>
     )}
 
-
-
     {groupedWords[0].length !== 1? 'Top Suggestions':'Top Suggestion'}
-    <PossibleAnswer wordlist={groupedWords[0]} listmode={false} setWordToAnswer={setWordToAnswer}/>
+    <PossibleAnswer wordlist={groupedWords[0]} setWordToAnswer={setWordToAnswer}/>
 
     There are currently <b>{sortedWords.length}</b> remaining options<br/>
 
     {groupedWords.slice(1,answersToShow).map((group, index) => (
-    <PossibleAnswer key={index} wordlist={group} listmode={true} setWordToAnswer={setWordToAnswer}/>
-    ))}
+    <PossibleAnswer key={index} wordlist={group} setWordToAnswer={setWordToAnswer}/>))
+    }
 
     <button className='button-Green' onClick={()=>ShowMoreAnswers(10)}>Show Next Ten</button>
-
     <button className='button-Green'onClick={()=>flashErrorMessage('ERROR')}>Try Error</button>
-
-
 
     <Footer/>
 </div>
