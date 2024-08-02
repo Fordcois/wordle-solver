@@ -28,8 +28,25 @@ body{
     box-shadow: rgba(149, 157, 165, 0.1) 0px 8px 24px;
 }
 
+.headerContainer{
+  position: relative; /* Establishes a positioning context for absolute positioning */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  width: 100%; 
+}
+
+.headerContainer .headericon{
+  position: absolute;
+  top: 0;
+  right: 0;
+}
 
 .Title{
+  margin: 0 auto;
     font-family: var(--LetterFont);
     text-transform: uppercase;
     color: var(--Grey);
@@ -39,7 +56,7 @@ body{
 
 .LetterContainer{
   display: flex;
-  padding: 20px 0px;
+  padding-bottom: 10px;
 }
 
 .letterBox-Container{
@@ -82,12 +99,14 @@ body{
   text-transform: uppercase;
   color: white;
   border-radius: 5px;
-  box-shadow: rgba(0, 0, 0, .2) 3px 3px 5px;
+  box-shadow: rgba(0, 0, 0, .1) 3px 3px 5px;
 }
 .button-Green:hover{
   background-color: rgb(111,164,107);
   color: #fff;
-  box-shadow: rgba(0, 0, 0, .3) 3px 3px 5px;
+}
+.button-Green:active{
+  box-shadow: rgba(0, 0, 0, .2) 3px 3px 5px;
 }
 
 /* Tool Tips */

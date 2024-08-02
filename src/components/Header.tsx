@@ -33,15 +33,18 @@ const Header: React.FC<HeaderProps> = ({setshowHelpPopUp}) => {
   }, []);
 
   return (
-    <div style={{width:'100%'}}>
+    <div className='headerContainer'>
     
-      <div style={{textAlign:'right'}}><FaQuestionCircle className="PopUpReactIcon" onClick={()=>setshowHelpPopUp(true)}/></div>
+      
       
      <div className="Title"> 
       {letters.map((letter, index) => (
         <span key={index} style={{ color: letter.color }}>{letter.char}</span>
       ))}
     </div>
+    <div className="headericon">
+      <FaQuestionCircle className="PopUpReactIcon" onClick={()=>setshowHelpPopUp(true)}/>
+      </div>
     </div>
   );
 };
