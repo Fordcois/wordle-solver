@@ -149,7 +149,7 @@ return (
     <div id="ErrorMessage" className={`ErrorMessage ${errorMessage != '\u00A0'? 'shake' : ''}`}>{errorMessage}</div>
 
     
-    <div style={{display:'flex'}}>
+    <div className='LetterContainer'>
         <UserLetterSquare letter={userWord[0].letter} index={0} ChangeUserLetter={ChangeUserLetter} colour={userWord[0].colour} />
         <UserLetterSquare letter={userWord[1].letter} index={1} ChangeUserLetter={ChangeUserLetter} colour={userWord[1].colour} />
         <UserLetterSquare letter={userWord[2].letter} index={2} ChangeUserLetter={ChangeUserLetter} colour={userWord[2].colour} />
@@ -159,7 +159,7 @@ return (
 
 
     <br/>
-    <button onClick={()=>ProcessUserWord()}>Process Current Word</button>
+    <button className='button-Green' onClick={()=>ProcessUserWord()}>submit word</button>
     <br/>
     {previousGuesses.length > 0 && (
                 <div>
@@ -188,9 +188,9 @@ There are currently <b>{sortedWords.length}</b> remaining options<br/>
         <PossibleAnswer key={index} wordlist={group} listmode={true} setWordToAnswer={setWordToAnswer}/>
     ))}
 <br/>
-<button onClick={()=>ShowMoreAnswers(10)}>Show Next Ten</button>
+<button className='button-Green' onClick={()=>ShowMoreAnswers(10)}>Show Next Ten</button>
 <br/>
-<button onClick={()=>flashErrorMessage('ERROR')}>Try Error</button>
+<button className='button-Green'onClick={()=>flashErrorMessage('ERROR')}>Try Error</button>
 <br/>
 
 
