@@ -141,15 +141,14 @@ const setWordToAnswer=(newWord:string)=>{
 
     
 return (
-    <div className='container'>
+<div className='container'>
     {showHelpPopUp && <HowToPopUp setshowHelpPopUp={setshowHelpPopUp} />}
-    
+
     <Header setshowHelpPopUp={setshowHelpPopUp}/>
-
-    <div id="ErrorMessage" className={`ErrorMessage ${errorMessage != '\u00A0'? 'shake' : ''}`}>{errorMessage}</div>
-
-    
-    <div className='LetterContainer'>
+{/* Error Message */}
+    <div id="ErrorMessage" className="ErrorMessage">{errorMessage}</div>
+{/* Letter Squares */}
+    <div className={`LetterContainer ${errorMessage != '\u00A0'? 'shake' : ''}`}>
         <UserLetterSquare letter={userWord[0].letter} index={0} ChangeUserLetter={ChangeUserLetter} colour={userWord[0].colour} />
         <UserLetterSquare letter={userWord[1].letter} index={1} ChangeUserLetter={ChangeUserLetter} colour={userWord[1].colour} />
         <UserLetterSquare letter={userWord[2].letter} index={2} ChangeUserLetter={ChangeUserLetter} colour={userWord[2].colour} />
@@ -157,50 +156,44 @@ return (
         <UserLetterSquare letter={userWord[4].letter} index={4} ChangeUserLetter={ChangeUserLetter} colour={userWord[4].colour} />
     </div>
 
-
-    <br/>
     <button className='button-Green' onClick={()=>ProcessUserWord()}>submit word</button>
-    <br/>
+
     {previousGuesses.length > 0 && (
-                <div>
-                    <b>Previous Guesses</b>
-                    {previousGuesses.map((guess, index) => (
-                        <div key={index}>
-                            <span style={{ color: guess[0].colour }}> {guess[0].letter} </span>
-                            <span style={{ color: guess[1].colour }}> {guess[1].letter}</span>
-                            <span style={{ color: guess[2].colour }}> {guess[2].letter}</span>
-                            <span style={{ color: guess[3].colour }}> {guess[3].letter}</span>
-                            <span style={{ color: guess[4].colour }}> {guess[4].letter}</span>
-                        </div>
-                    ))}
-                </div>
-            )}
-
-
-
-{groupedWords[0].length !== 1? 'Top Suggestions':'Top Suggestion'}
-<PossibleAnswer wordlist={groupedWords[0]} listmode={false} setWordToAnswer={setWordToAnswer}/>
-
-<br/>
-There are currently <b>{sortedWords.length}</b> remaining options<br/>
-
-{groupedWords.slice(1,answersToShow).map((group, index) => (
-        <PossibleAnswer key={index} wordlist={group} listmode={true} setWordToAnswer={setWordToAnswer}/>
-    ))}
-<br/>
-<button className='button-Green' onClick={()=>ShowMoreAnswers(10)}>Show Next Ten</button>
-<br/>
-<button className='button-Green'onClick={()=>flashErrorMessage('ERROR')}>Try Error</button>
-<br/>
-
-
-<Footer/>
+    
+    <div>
+        <b>Previous Guesses</b>
+        {previousGuesses.map((guess, index) => (
+        <div key={index}>
+            <span style={{ color: guess[0].colour }}> {guess[0].letter} </span>
+            <span style={{ color: guess[1].colour }}> {guess[1].letter}</span>
+            <span style={{ color: guess[2].colour }}> {guess[2].letter}</span>
+            <span style={{ color: guess[3].colour }}> {guess[3].letter}</span>
+            <span style={{ color: guess[4].colour }}> {guess[4].letter}</span>
+        </div>
+        ))}
     </div>
-    );
+    )}
 
 
-};
 
+    {groupedWords[0].length !== 1? 'Top Suggestions':'Top Suggestion'}
+    <PossibleAnswer wordlist={groupedWords[0]} listmode={false} setWordToAnswer={setWordToAnswer}/>
+
+    There are currently <b>{sortedWords.length}</b> remaining options<br/>
+
+    {groupedWords.slice(1,answersToShow).map((group, index) => (
+    <PossibleAnswer key={index} wordlist={group} listmode={true} setWordToAnswer={setWordToAnswer}/>
+    ))}
+
+    <button className='button-Green' onClick={()=>ShowMoreAnswers(10)}>Show Next Ten</button>
+
+    <button className='button-Green'onClick={()=>flashErrorMessage('ERROR')}>Try Error</button>
+
+
+
+    <Footer/>
+</div>
+);};
 
 export default dynamic (() => Promise.resolve(SolvrIndex), {ssr: false})
 

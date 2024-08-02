@@ -17,7 +17,7 @@ body{
 .container {
   background-color: rgb(255,255,255);
     width: 350px;
-    height: 90vh;
+    min-height: 95vh;
     padding: 10px;
     margin: 0px auto;
     display: flex;
@@ -203,4 +203,22 @@ body{
 
 .shake {
   animation: shake 0.15s;
+}
+
+@keyframes flip {
+  0% {
+    transform: scaleY(1);
+  }
+  50% {
+    background: white;
+    transform: scaleY(0);
+  }
+  100% {
+    transform: scaleY(1);
+    background: green;
+  }
+}
+
+.flip {
+  animation: flip 500ms ease forwards;
 }

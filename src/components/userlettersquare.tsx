@@ -23,10 +23,7 @@ const changeColour = () => {
 
   return (
     <div className="letterBox-Container">
-      <input
-      className="letterBox"
-      style={{ backgroundColor: colour }}
-        type="text"
+      <input className="letterBox" style={{ backgroundColor: colour }} type="text"
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           ChangeUserLetter(index, colour, e.target.value)
         }
