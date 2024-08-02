@@ -133,7 +133,7 @@ const ShowMoreAnswers=(showExtra:number) => {
 
 const setWordToAnswer=(newWord:string)=>{
     for (let i = 0; i < 5; i++) {
-        ChangeUserLetter(i,userWord[i].colour,newWord[i])
+        ChangeUserLetter(i,'var(--Grey)',newWord[i])
     }
 
 }
