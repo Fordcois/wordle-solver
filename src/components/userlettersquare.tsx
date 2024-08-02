@@ -30,7 +30,7 @@ const changeColour = () => {
         maxLength={1}
         value={letter}
       />
-      <span style={{backgroundColor: colour,width: "15px",height: "15px",borderRadius: "15px",marginTop: "5px",}} onClick={changeColour}>
+      <span className='colour-change-button' style={{backgroundColor: colour}} onClick={changeColour}>
     </span>
     </div>
   );

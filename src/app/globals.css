@@ -222,5 +222,16 @@ body{
 }
 .sugested-word:hover{
   background-color: var(--Green);
-
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
+
+.colour-change-button{
+  height: 15px;
+  width: 15px;
+  border-radius: 15px;
+  margin-top: 5px;
+  cursor: pointer;
+  border: 1px solid var(--Grey);
+  box-shadow: rgba(139, 143, 145, .15) 2px 2px 0px;
+}
+
