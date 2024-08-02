@@ -18,12 +18,13 @@ type UserWordState = {[key: number]: LetterInfo;};
 const [showHelpPopUp,setshowHelpPopUp] = useState<Boolean>(false);
 
 const [answersToShow,setanswersToShow] = useState<number>(0);
-const [errorMessage,setErrorMessage] = useState<string>("");
+const [errorMessage,setErrorMessage] = useState<string>('\u00A0');
 
 const flashErrorMessage = (message: string) => {
     setErrorMessage(message);
-    setTimeout(() => setErrorMessage(''), 1250);
+    setTimeout(() => setErrorMessage('\u00A0'), 1500);
 }
+
 
 
 
@@ -144,7 +145,10 @@ return (
     {showHelpPopUp && <HowToPopUp setshowHelpPopUp={setshowHelpPopUp} />}
     
     <Header setshowHelpPopUp={setshowHelpPopUp}/>
-    {errorMessage}
+
+    <div id="ErrorMessage" className={`ErrorMessage ${errorMessage != '\u00A0'? 'shake' : ''}`}>{errorMessage}</div>
+
+    
     <div style={{display:'flex'}}>
         <UserLetterSquare letter={userWord[0].letter} index={0} ChangeUserLetter={ChangeUserLetter} colour={userWord[0].colour} />
         <UserLetterSquare letter={userWord[1].letter} index={1} ChangeUserLetter={ChangeUserLetter} colour={userWord[1].colour} />
@@ -186,7 +190,6 @@ There are currently <b>{sortedWords.length}</b> remaining options<br/>
 <br/>
 <button onClick={()=>ShowMoreAnswers(10)}>Show Next Ten</button>
 <br/>
-<button onClick={()=>setWordToAnswer('words')}>set Answer to Words</button>
 <button onClick={()=>flashErrorMessage('ERROR')}>Try Error</button>
 <br/>
 

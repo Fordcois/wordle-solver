@@ -6,6 +6,7 @@
 --Green: rgb(123,182,119);
 --Yellow: rgb(211,191,107);
 --Grey:  rgb(139,143,145);
+--Red: rgb(188, 97, 87);
 }
 
 .container {
@@ -135,4 +136,24 @@ text-align: center;
     color: var(--Grey);
     text-align: justify;
     padding: 10px;
+}
+
+.ErrorMessage{
+  color: var(--Red);
+  padding: 5px;
+  font-family: var(--LetterFont);
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+/* Animations */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-5px); }
+  40%, 80% { transform: translateX(5px); }
+}
+
+.shake {
+  animation: shake 0.15s;
 }
