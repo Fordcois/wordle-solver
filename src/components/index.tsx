@@ -2,13 +2,14 @@
 import React, { useState, useMemo } from 'react';
 import dynamic from "next/dynamic";
 import wordlistArr from '@/resources/wordlist';
-import UserLetterSquare from './userlettersquare';
 import relevantSort from '@/resources/relevant_sort';
 import groupAnagrams from '@/resources/anagram_grouper';
 import PossibleAnswer from './answergroup';
 import HowToPopUp from './HowToPopUp';
 import Header from './Header';
 import Footer from './footer';
+import LetterSquare from './LetterSquare';
+
 
 const SolvrIndex: React.FC = () => {
 
@@ -149,12 +150,15 @@ return (
     <div id="ErrorMessage" className="ErrorMessage">{errorMessage}</div>
 {/* Letter Squares */}
     <div className={`LetterContainer ${errorMessage != '\u00A0'? 'shake' : ''}`}>
-        <UserLetterSquare letter={userWord[0].letter} index={0} ChangeUserLetter={ChangeUserLetter} colour={userWord[0].colour} />
-        <UserLetterSquare letter={userWord[1].letter} index={1} ChangeUserLetter={ChangeUserLetter} colour={userWord[1].colour} />
-        <UserLetterSquare letter={userWord[2].letter} index={2} ChangeUserLetter={ChangeUserLetter} colour={userWord[2].colour} />
-        <UserLetterSquare letter={userWord[3].letter} index={3} ChangeUserLetter={ChangeUserLetter} colour={userWord[3].colour} />
-        <UserLetterSquare letter={userWord[4].letter} index={4} ChangeUserLetter={ChangeUserLetter} colour={userWord[4].colour} />
+        <LetterSquare letter={userWord[0].letter} index={0} ChangeUserLetter={ChangeUserLetter} colour={userWord[0].colour}/>
+        <LetterSquare letter={userWord[1].letter} index={1} ChangeUserLetter={ChangeUserLetter} colour={userWord[1].colour}/>
+        <LetterSquare letter={userWord[2].letter} index={2} ChangeUserLetter={ChangeUserLetter} colour={userWord[2].colour}/>
+        <LetterSquare letter={userWord[3].letter} index={3} ChangeUserLetter={ChangeUserLetter} colour={userWord[3].colour}/>
+        <LetterSquare letter={userWord[4].letter} index={4} ChangeUserLetter={ChangeUserLetter} colour={userWord[4].colour}/>
     </div>
+
+
+
 
     <button className='button-Green' onClick={()=>ProcessUserWord()}>submit word</button>
 
