@@ -10,13 +10,14 @@ import Header from './Header';
 import Footer from './footer';
 import LetterSquare from './LetterSquare';
 
-
 const SolvrIndex: React.FC = () => {
 
 type LetterInfo = {letter: string;colour: string;};
 type UserWordState = {[key: number]: LetterInfo;};
+interface LetterList {[key: number]: string[];}
 
-const [showHelpPopUp,setshowHelpPopUp] = useState<Boolean>(false);
+const [showHelpPopUp,setshowHelpPopUp] = useState<boolean>(false);
+const [possibleWords,setpossibleWords] = useState<string[]>(wordlistArr);
 
 const [answersToShow,setanswersToShow] = useState<number>(0);
 const [errorMessage,setErrorMessage] = useState<string>('\u00A0');
@@ -25,9 +26,6 @@ const flashErrorMessage = (message: string) => {
     setErrorMessage(message);
     setTimeout(() => setErrorMessage('\u00A0'), 1500);
 }
-
-
-
 
 const [userWord, setUserWord] = useState<UserWordState>({
     0: { letter: 'a', colour: 'var(--Grey)' },
@@ -57,77 +55,88 @@ const [letterOptions, setLetterOptions] = useState<{ [key: number]: string[] }>(
     2: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'],
     3: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'],
     4: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'],
+    5: []
 });
 
-const [confirmedLetters, setConfirmedLetters] = useState<string[]>([]);
 
-const remainingOptions = useMemo(() => {
-    return wordlistArr.filter(word =>
-        letterOptions[0].includes(word[0]) &&
-        letterOptions[1].includes(word[1]) &&
-        letterOptions[2].includes(word[2]) &&
-        letterOptions[3].includes(word[3]) &&
-        letterOptions[4].includes(word[4]) &&
-        confirmedLetters.every(letter => word.includes(letter))
-    );
-}, [letterOptions, confirmedLetters]);
-
-const processLetter = (index: number, letter: string, colour: string) => {
-    setLetterOptions((prevOptions) => {
-    const newOptions = { ...prevOptions };
+const processLetter = (index: number,letter: string,colour: string,letterList: LetterList): LetterList => {
+    const newOptions: LetterList = { ...letterList };
      // If letter is match in position
         // remove all over letters from that indexlist
     if (colour === 'var(--Green)') {
-        newOptions[index] = [letter];
-    };
-    // If Letter is a match but not at that positon
+      newOptions[index] = [letter];
+    }
+     // If Letter is a match but not at that positon
         // remove from current index
     if (colour === 'var(--Yellow)') {
-        const indexToRemove = newOptions[index].indexOf(letter);
-        if (indexToRemove > -1) {
-        newOptions[index].splice(indexToRemove, 1);
-        }
-        // If not already in there add the letter to the Discovered Letters List
-        if(!confirmedLetters.includes(letter)){
-            let newConfirmed = confirmedLetters
-            newConfirmed.push(letter)
-            setConfirmedLetters(newConfirmed)
-        }};
+      const indexToRemove = newOptions[index].indexOf(letter);
+      if (indexToRemove > -1) {newOptions[index].splice(indexToRemove, 1);}
+      // If not already in there add the letter to the Discovered Letters List
+      if (!newOptions[5].includes(letter)){newOptions[5].push(letter)}
+    }
     // if letter not in word
-            // Remove from all options Lists if not already removed
+        // Remove from all options Lists if not already removed
     if (colour === 'var(--Grey)') {
-        for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < 5; i++) {
         const indexToRemove = newOptions[i].indexOf(letter);
         if (indexToRemove > -1) {newOptions[i].splice(indexToRemove, 1);}
-        };}
+      }
+    }
     return newOptions;
-    });};
+  };
 
-
-const ProcessUserWord =()=>{
-const submittedWord:string =  [userWord[0].letter,userWord[1].letter, userWord[2].letter,userWord[3].letter, userWord[4].letter].join('')
-if (sortedWords.includes(submittedWord ))
-{    addToPreviousGuessList(userWord);
+const ProcessWord = (NewUserWord: UserWordState, LetterList: LetterList): LetterList => {
+    let NewLetterList = {...LetterList};
     for (let i = 0; i < 5; i++) {
-        processLetter(i,userWord[i].letter,userWord[i].colour)
-    };}
-else {
-    flashErrorMessage('Invalid Word')
-}
+        NewLetterList = processLetter(i, NewUserWord[i].letter, NewUserWord[i].colour, NewLetterList);
+    }
+    return NewLetterList;
 };
 
 
-    
-const sortedWords = useMemo(() => {
-    return relevantSort(remainingOptions);
-  }, [remainingOptions]);
-    
-const groupedWords = useMemo(()=>{
-    return groupAnagrams(sortedWords)
-},[sortedWords])
 
+const BuildLetterLists = (userWord: UserWordState) => {
+    let updatedLetterList = {...letterOptions};
+    return ProcessWord(userWord, updatedLetterList);
+}
 
+const FilterOptions = (WordArray: string[], passedLetters: LetterList) => {
+    return WordArray.filter(word =>
+        passedLetters[0].includes(word[0]) &&
+        passedLetters[1].includes(word[1]) &&
+        passedLetters[2].includes(word[2]) &&
+        passedLetters[3].includes(word[3]) &&
+        passedLetters[4].includes(word[4]) &&
+        passedLetters[5].every(letter => word.includes(letter))
+    )
+}
+
+const WordSubmit = () => {
+    const submittedWord = Object.values(userWord).map(info => info.letter).join('');
     
+    if (!wordlistArr.includes(submittedWord)) {
+        flashErrorMessage('INVALID WORD');
+        return;
+    }
+
+    const updatedLetterList = BuildLetterLists(userWord);
+    const filteredList = FilterOptions(possibleWords, updatedLetterList);
+
+    if (filteredList.length === 0) {
+        flashErrorMessage('INVALID WORD');
+    } else {
+        setLetterOptions(updatedLetterList);
+        setpossibleWords(filteredList);
+        addToPreviousGuessList(userWord);
+    }
+}
+
+const sortedWords = useMemo(() => {return relevantSort(possibleWords);}, 
+    [possibleWords]);
+    
+const groupedWords = useMemo(()=>{return groupAnagrams(sortedWords)},
+    [sortedWords])
+
 const ShowMoreAnswers=(showExtra:number) => {
     if (answersToShow+showExtra < groupedWords.length){setanswersToShow(answersToShow+showExtra)}
     else {setanswersToShow(groupedWords.length)}
@@ -135,20 +144,19 @@ const ShowMoreAnswers=(showExtra:number) => {
 
 const setWordToAnswer=(newWord:string)=>{
     for (let i = 0; i < 5; i++) {
-        ChangeUserLetter(i,'var(--Grey)',newWord[i])
+        if (userWord[i].colour=='var(--Green)')
+            {ChangeUserLetter(i,'var(--Green)',newWord[i])}
+        else
+            {ChangeUserLetter(i,'var(--Grey)',newWord[i])}
     }
-
 }
-
     
 return (
 <div className='container'>
     {showHelpPopUp && <HowToPopUp setshowHelpPopUp={setshowHelpPopUp} />}
 
     <Header setshowHelpPopUp={setshowHelpPopUp}/>
-{/* Error Message */}
     <div id="ErrorMessage" className="ErrorMessage">{errorMessage}</div>
-{/* Letter Squares */}
     <div className={`LetterContainer ${errorMessage != '\u00A0'? 'shake' : ''}`}>
         <LetterSquare letter={userWord[0].letter} index={0} ChangeUserLetter={ChangeUserLetter} colour={userWord[0].colour}/>
         <LetterSquare letter={userWord[1].letter} index={1} ChangeUserLetter={ChangeUserLetter} colour={userWord[1].colour}/>
@@ -157,10 +165,7 @@ return (
         <LetterSquare letter={userWord[4].letter} index={4} ChangeUserLetter={ChangeUserLetter} colour={userWord[4].colour}/>
     </div>
 
-
-
-
-    <button className='button-Green' onClick={()=>ProcessUserWord()}>submit word</button>
+    <button className='button-Green' onClick={WordSubmit}>submit word</button>
 
     {previousGuesses.length > 0 && (
     <div>
@@ -188,10 +193,10 @@ return (
 
     <button className='button-Green' onClick={()=>ShowMoreAnswers(10)}>Show Next Ten</button>
     <button className='button-Green'onClick={()=>flashErrorMessage('ERROR')}>Try Error</button>
+    <button className='button-Green'onClick={WordSubmit}>Process</button>
 
     <Footer/>
 </div>
 );};
 
 export default dynamic (() => Promise.resolve(SolvrIndex), {ssr: false})
-
