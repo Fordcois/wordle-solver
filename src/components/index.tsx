@@ -9,6 +9,7 @@ import HowToPopUp from './HowToPopUp';
 import Header from './Header';
 import Footer from './footer';
 import LetterSquare from './LetterSquare';
+import PrevGuessDisplay from './PreviousGuesses';
 
 const SolvrIndex: React.FC = () => {
 
@@ -87,13 +88,10 @@ const processLetter = (index: number,letter: string,colour: string,letterList: L
 
 const ProcessWord = (NewUserWord: UserWordState, LetterList: LetterList): LetterList => {
     let NewLetterList = {...LetterList};
-    for (let i = 0; i < 5; i++) {
-        NewLetterList = processLetter(i, NewUserWord[i].letter, NewUserWord[i].colour, NewLetterList);
-    }
+    for (let i = 0; i < 5; i++) 
+        {NewLetterList = processLetter(i, NewUserWord[i].letter, NewUserWord[i].colour, NewLetterList);}
     return NewLetterList;
 };
-
-
 
 const BuildLetterLists = (userWord: UserWordState) => {
     let updatedLetterList = {...letterOptions};
@@ -112,13 +110,12 @@ const FilterOptions = (WordArray: string[], passedLetters: LetterList) => {
 }
 
 const WordSubmit = () => {
-    const submittedWord = Object.values(userWord).map(info => info.letter).join('');
-    
+    const submittedWord = [userWord[0].letter,userWord[1].letter, userWord[2].letter,userWord[3].letter, userWord[4].letter].join('')
+
     if (!possibleWords.includes(submittedWord)) {
         flashErrorMessage('INVALID WORD');
         return;
     }
-
     const updatedLetterList = BuildLetterLists(userWord);
     const filteredList = FilterOptions(possibleWords, updatedLetterList);
 
@@ -131,10 +128,12 @@ const WordSubmit = () => {
     }
 }
 
-const sortedWords = useMemo(() => {return relevantSort(possibleWords);}, 
+const sortedWords = useMemo(() => {
+    return relevantSort(possibleWords);}, 
     [possibleWords]);
     
-const groupedWords = useMemo(()=>{return groupAnagrams(sortedWords)},
+const groupedWords = useMemo(()=>{
+    return groupAnagrams(sortedWords)},
     [sortedWords])
 
 const ShowMoreAnswers=(showExtra:number) => {
@@ -157,6 +156,7 @@ return (
 
     <Header setshowHelpPopUp={setshowHelpPopUp}/>
     <div id="ErrorMessage" className="ErrorMessage">{errorMessage}</div>
+    
     <div className={`LetterContainer ${errorMessage != '\u00A0'? 'shake' : ''}`}>
         <LetterSquare letter={userWord[0].letter} index={0} ChangeUserLetter={ChangeUserLetter} colour={userWord[0].colour}/>
         <LetterSquare letter={userWord[1].letter} index={1} ChangeUserLetter={ChangeUserLetter} colour={userWord[1].colour}/>
@@ -167,27 +167,14 @@ return (
 
     <button className='button-Green' onClick={WordSubmit}>submit word</button>
 
-
-
-    {previousGuesses.length > 0 && (
-    <div>
-        <span className='prev-guess-title'>Previous Guesses</span>
-        {previousGuesses.map((guess, index) => (
-        <div className='prev-guess-container' key={index}>
-            <span style={{ color: guess[0].colour }}> {guess[0].letter} </span>
-            <span style={{ color: guess[1].colour }}> {guess[1].letter}</span>
-            <span style={{ color: guess[2].colour }}> {guess[2].letter}</span>
-            <span style={{ color: guess[3].colour }}> {guess[3].letter}</span>
-            <span style={{ color: guess[4].colour }}> {guess[4].letter}</span>
-        </div>
-        ))}
-    </div>
-    )}
+    
 
     {groupedWords[0].length !== 1? 'Top Suggestions':'Top Suggestion'}
     <PossibleAnswer wordlist={groupedWords[0]} setWordToAnswer={setWordToAnswer}/>
 
     There are currently <b>{sortedWords.length}</b> remaining options<br/>
+
+    <PrevGuessDisplay previousGuesses={previousGuesses}/>
 
     {groupedWords.slice(1,answersToShow).map((group, index) => (
     <PossibleAnswer key={index} wordlist={group} setWordToAnswer={setWordToAnswer}/>))
