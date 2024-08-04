@@ -114,7 +114,7 @@ const FilterOptions = (WordArray: string[], passedLetters: LetterList) => {
 const WordSubmit = () => {
     const submittedWord = Object.values(userWord).map(info => info.letter).join('');
     
-    if (!wordlistArr.includes(submittedWord)) {
+    if (!possibleWords.includes(submittedWord)) {
         flashErrorMessage('INVALID WORD');
         return;
     }
@@ -167,11 +167,13 @@ return (
 
     <button className='button-Green' onClick={WordSubmit}>submit word</button>
 
+
+
     {previousGuesses.length > 0 && (
     <div>
-        <b>Previous Guesses</b>
+        <span className='prev-guess-title'>Previous Guesses</span>
         {previousGuesses.map((guess, index) => (
-        <div key={index}>
+        <div className='prev-guess-container' key={index}>
             <span style={{ color: guess[0].colour }}> {guess[0].letter} </span>
             <span style={{ color: guess[1].colour }}> {guess[1].letter}</span>
             <span style={{ color: guess[2].colour }}> {guess[2].letter}</span>
@@ -193,8 +195,6 @@ return (
 
     <button className='button-Green' onClick={()=>ShowMoreAnswers(10)}>Show Next Ten</button>
     <button className='button-Green'onClick={()=>flashErrorMessage('ERROR')}>Try Error</button>
-    <button className='button-Green'onClick={WordSubmit}>Process</button>
-
     <Footer/>
 </div>
 );};

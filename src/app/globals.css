@@ -216,7 +216,7 @@ body{
   margin:  0px 2px;
   padding:  0px 10px;
   border-radius: 20px;
-  text-transform: capitalize;
+  text-transform: uppercase;
   font-weight: 500;
   cursor: pointer;
 }
@@ -259,4 +259,18 @@ body{
   
   .flip-leave {
     animation: flip-leave 250ms ease forwards;
+  }
+
+  .prev-guess-title{
+    color: var(--Grey);
+    font-family: var(--LetterFont);
+    font-weight: 700;
+  }
+
+  .prev-guess-container{
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--LetterFont);
+    text-transform: uppercase;
+    font-weight: 700;
   }
