@@ -170,7 +170,7 @@ return (
     {groupedWords[0].length !== 1? 'Top Suggestions':'Top Suggestion'}
     <PossibleAnswer wordlist={groupedWords[0]} setWordToAnswer={setWordToAnswer}/>
 
-    There are currently <b>{sortedWords.length}</b> remaining options<br/>
+    <span><b>{sortedWords.length}</b> remaining options</span>
 
     <PrevGuessDisplay previousGuesses={previousGuesses} />
     

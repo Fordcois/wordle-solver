@@ -1,11 +1,7 @@
 import React, {useState} from "react";
-import { AiFillGithub } from "react-icons/ai";
-import { FaGlobeEurope } from "react-icons/fa";
-import { IoIosMail } from "react-icons/io";
-import { SiKofi } from "react-icons/si";
 import PossibleAnswer from "./answergroup";
 
-type SetWordToAnswer = (newWord: string) => void;
+type setWordToAnswer = (newWord: string) => void;
 interface RemainingOptionsProps {
     groupedWords: string[][];
     setWordToAnswer:setWordToAnswer;
@@ -21,12 +17,15 @@ const RemainingOptions: React.FC<RemainingOptionsProps> = ({groupedWords,setWord
 
 
 return (
-<div className="">
-{groupedWords.slice(1,answersToShow).map((group, index) => (
-    <PossibleAnswer key={index} wordlist={group} setWordToAnswer={setWordToAnswer}/>))
-    }
+    <div>
 
 <button className='button-Green' onClick={()=>ShowMoreAnswers(10)}>Show Next Ten</button>
+
+    <div className="remaining-options-area">
+        {groupedWords.slice(1,answersToShow).map((group, index) => (
+            <PossibleAnswer key={index} wordlist={group} setWordToAnswer={setWordToAnswer}/>))
+            }
+    </div>
 </div>
   );
 };

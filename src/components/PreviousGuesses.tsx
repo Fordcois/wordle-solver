@@ -27,6 +27,12 @@ const PrevGuessDisplay: React.FC<PrevGuessDisplayProps> = ({previousGuesses}) =>
             <span style={{ color: guess[4].colour }}> {guess[4].letter}</span>
         </div>
         ))}
+        ONE<br/>
+        TWo<br/>
+        Three<br/>
+        Four<br/>
+        Five<br/>
+        Six
 </div>
 )}
   </div>)
