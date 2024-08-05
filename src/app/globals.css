@@ -30,9 +30,7 @@ body{
 }
 
 .headerContainer{
-  position: relative; /* Establishes a positioning context for absolute positioning */
-  display: flex;
-  align-items: center;
+  position: relative;
   display: flex;
   justify-content: space-between; 
   width: 100%; 
@@ -49,7 +47,7 @@ body{
     font-family: var(--LetterFont);
     text-transform: uppercase;
     color: var(--Grey);
-    font-size: 2rem;
+    font-size: 3.5rem;
     font-weight: 700;
 }
 
@@ -149,6 +147,7 @@ body{
 
   .PopUpReactIcon {
     color: var(--Grey);
+    font-size: 1.5rem;
   }
   
   .PopUpReactIcon:hover {
@@ -188,7 +187,6 @@ body{
 
 .ErrorMessage{
   color: var(--Red);
-  padding: 5px;
   font-family: var(--LetterFont);
   text-transform: uppercase;
   font-size: 1.5rem;

@@ -10,6 +10,7 @@ import Header from './Header';
 import Footer from './footer';
 import LetterSquare from './LetterSquare';
 import PrevGuessDisplay from './PreviousGuesses';
+import RemainingOptions from './remainingoptions';
 
 const SolvrIndex: React.FC = () => {
 
@@ -20,7 +21,7 @@ interface LetterList {[key: number]: string[];}
 const [showHelpPopUp,setshowHelpPopUp] = useState<boolean>(false);
 const [possibleWords,setpossibleWords] = useState<string[]>(wordlistArr);
 
-const [answersToShow,setanswersToShow] = useState<number>(0);
+
 const [errorMessage,setErrorMessage] = useState<string>('\u00A0');
 
 const flashErrorMessage = (message: string) => {
@@ -136,10 +137,7 @@ const groupedWords = useMemo(()=>{
     return groupAnagrams(sortedWords)},
     [sortedWords])
 
-const ShowMoreAnswers=(showExtra:number) => {
-    if (answersToShow+showExtra < groupedWords.length){setanswersToShow(answersToShow+showExtra)}
-    else {setanswersToShow(groupedWords.length)}
-}
+
 
 const setWordToAnswer=(newWord:string)=>{
     for (let i = 0; i < 5; i++) {
@@ -174,13 +172,12 @@ return (
 
     There are currently <b>{sortedWords.length}</b> remaining options<br/>
 
-    <PrevGuessDisplay previousGuesses={previousGuesses}/>
+    <PrevGuessDisplay previousGuesses={previousGuesses} />
+    
+    <RemainingOptions groupedWords={groupedWords} setWordToAnswer={setWordToAnswer}/>
+ 
 
-    {groupedWords.slice(1,answersToShow).map((group, index) => (
-    <PossibleAnswer key={index} wordlist={group} setWordToAnswer={setWordToAnswer}/>))
-    }
-
-    <button className='button-Green' onClick={()=>ShowMoreAnswers(10)}>Show Next Ten</button>
+    
     <button className='button-Green'onClick={()=>flashErrorMessage('ERROR')}>Try Error</button>
     <Footer/>
 </div>
