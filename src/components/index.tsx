@@ -11,6 +11,7 @@ import Footer from './footer';
 import LetterSquare from './LetterSquare';
 import PrevGuessDisplay from './PreviousGuesses';
 import RemainingOptions from './remainingoptions';
+import PossibilitiesNumber from './possibilityNumber';
 
 const SolvrIndex: React.FC = () => {
 
@@ -113,7 +114,7 @@ const FilterOptions = (WordArray: string[], passedLetters: LetterList) => {
 const WordSubmit = () => {
     const submittedWord = [userWord[0].letter,userWord[1].letter, userWord[2].letter,userWord[3].letter, userWord[4].letter].join('')
 
-    if (!possibleWords.includes(submittedWord)) {
+    if (!possibleWords.includes(submittedWord) || possibleWords.length == 1) {
         flashErrorMessage('INVALID WORD');
         return;
     }
@@ -166,19 +167,20 @@ return (
     <button className='button-Green' onClick={WordSubmit}>submit word</button>
 
     
+    <PossibilitiesNumber length={sortedWords.length}/>
 
-    {groupedWords[0].length !== 1? 'Top Suggestions':'Top Suggestion'}
-    <PossibleAnswer wordlist={groupedWords[0]} setWordToAnswer={setWordToAnswer}/>
-
-    <span><b>{sortedWords.length}</b> remaining options</span>
+   <div className='body-title'> {groupedWords[0].length !== 1? 'Top Suggestions':'Top Suggestion'}</div>
+    
+    <div className='five-padding'>
+        <PossibleAnswer wordlist={groupedWords[0]} setWordToAnswer={setWordToAnswer}/>
+    </div>
 
     <PrevGuessDisplay previousGuesses={previousGuesses} />
     
-    <RemainingOptions groupedWords={groupedWords} setWordToAnswer={setWordToAnswer}/>
- 
+    <div className="remaining-options-wrapper">
+        <RemainingOptions groupedWords={groupedWords} setWordToAnswer={setWordToAnswer}/>
+    </div>
 
-    
-    <button className='button-Green'onClick={()=>flashErrorMessage('ERROR')}>Try Error</button>
     <Footer/>
 </div>
 );};

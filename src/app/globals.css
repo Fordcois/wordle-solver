@@ -17,18 +17,19 @@ body{
 
 
 .container {
-  background-color: rgb(255,255,255);
-    min-width: 350px;
-    max-width: 500px;
-    min-height: 95vh;
-    padding: 10px;
-    margin: 0px auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center; 
-    border-radius: 5px;
-    box-shadow: rgba(149, 157, 165, 0.1) 0px 8px 24px;
+  min-width: 350px;
+  max-width: 500px;
+  min-height: 100dvh;
+  height: 100dvh; /* Add this line */
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center; 
+  border-radius: 5px;
+  box-shadow: rgba(149, 157, 165, 0.1) 0px 8px 24px;
+  overflow: hidden; /* Add this line */
 }
 
 .headerContainer{
@@ -40,8 +41,8 @@ body{
 
 .headerContainer .headericon{
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 10px;
+  right: 10px;
 }
 
 .Title{
@@ -55,14 +56,15 @@ body{
 
 .LetterContainer{
   display: flex;
-  padding-bottom: 10px;
+  padding-bottom: 25px;
 }
 
 .letterBox-Container{
   display: flex;
+  height: 95px;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   text-align: center;
 }
 
@@ -92,7 +94,7 @@ body{
   background-color: var(--Green);
   border: none;
   padding: 5px 0px;
-  width: 250px;
+  width: 285px;
   font-family: var(--LetterFont);
   font-weight: 700;
   text-transform: uppercase;
@@ -227,12 +229,12 @@ body{
 }
 
 .colour-change-button{
-  height: 15px;
-  width: 15px;
+  height: 20px;
+  width: 20px;
   border-radius: 15px;
   margin-top: 5px;
   cursor: pointer;
-  box-shadow: rgba(139, 143, 145, .15) 2px 2px 0px;
+  box-shadow: rgba(139, 143, 145, .2) 2px 2px 0px;
 }
 
 
@@ -262,13 +264,22 @@ body{
     animation: flip-leave 250ms ease forwards;
   }
 
-  .prev-guess-title{
+  .body-title{
     color: var(--Grey);
     font-family: var(--LetterFont);
+    font-size: 1.1rem;
     font-weight: 700;
+    padding: 10px 0px;
   }
 
-  .prev-guess-container{
+.previous-guesses-containers{
+  padding: 10px 0px;
+  overflow: auto;
+  scrollbar-width: thin; /* "auto" or "thin" */
+  scrollbar-color: var(--Green) white;
+}
+
+  .single-prev-guess{
     display: flex;
     justify-content: space-between;
     font-family: var(--LetterFont);
@@ -276,14 +287,60 @@ body{
     font-weight: 700;
   }
 
-  .remaining-options-area {
+  .remaining-options-wrapper {
+    flex: 1;
+    min-height: 0;
+    width: 100%;
     display: flex;
-  
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .remaining-options-area {
+    padding: 10px 0;
+    display: flex;
     flex-direction: column;
     align-items: center;
-    height: 225px;
+    width: 100%;
+    flex: 1; /* Add this line */
+    min-height: 0; /* Add this line */
     overflow-y: auto;
-    overflow-x: hidden; /* Hide horizontal scrollbar */
-    scrollbar-width: thin; /* "auto" or "thin" */
+    overflow-x: hidden;
+    scrollbar-width: thin;
     scrollbar-color: var(--Green) white;
   }
+
+.five-padding{
+  padding: 5px 0px;
+}
+
+.possibilities-number-container{
+  color: var(--Grey);
+  padding: 20px 0px;
+}
+
+.possibilities-number-container .green-bold{
+  font-size: 1.25rem;
+  color: var(--Green);
+  font-weight: 700;
+}
+
+.small-light-font{
+  color: var(--Grey);
+  font-size: small;
+  font-weight: 200;
+}
+.small-light-font-link{
+  color: var(--Grey);
+  font-size: small;
+  font-weight: 200;
+  cursor: pointer;
+  text-decoration: 2px solid underline var(--Green);
+}
+
+.small-light-font-link:hover{
+  color: var(--Green);
+  font-size: small;
+  cursor: pointer;
+  text-decoration: 2px solid underline var(--Grey);
+}

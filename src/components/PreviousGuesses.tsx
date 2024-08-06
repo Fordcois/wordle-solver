@@ -14,12 +14,17 @@ interface Guess {
 
 const PrevGuessDisplay: React.FC<PrevGuessDisplayProps> = ({previousGuesses}) => {
   return (
-<div>
-    {previousGuesses.length > 0 && (
+<div className="previous-guesses-containers">
+  <div className='body-title'>Previous Guesses</div>
+
+    {previousGuesses.length === 0?
     <div>
-        <span className='prev-guess-title'>Previous Guesses</span>
+      <span className="small-light-font">(Previous guesses will appear here)</span>
+    </div>
+    :
+    <div>
         {previousGuesses.map((guess, index) => (
-        <div className='prev-guess-container' key={index}>
+        <div className='single-prev-guess' key={index}>
             <span style={{ color: guess[0].colour }}> {guess[0].letter} </span>
             <span style={{ color: guess[1].colour }}> {guess[1].letter}</span>
             <span style={{ color: guess[2].colour }}> {guess[2].letter}</span>
@@ -27,14 +32,7 @@ const PrevGuessDisplay: React.FC<PrevGuessDisplayProps> = ({previousGuesses}) =>
             <span style={{ color: guess[4].colour }}> {guess[4].letter}</span>
         </div>
         ))}
-        ONE<br/>
-        TWo<br/>
-        Three<br/>
-        Four<br/>
-        Five<br/>
-        Six
-</div>
-)}
+      </div>}
   </div>)
 };
 
