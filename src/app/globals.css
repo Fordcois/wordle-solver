@@ -339,8 +339,6 @@ body{
 }
 
 .small-light-font-link:hover{
-  color: var(--Green);
-  font-size: small;
   cursor: pointer;
-  text-decoration: 2px solid underline var(--Grey);
+  text-decoration: 2px solid underline var(--Yellow);
 }
