@@ -2,7 +2,11 @@
 
 ## Overview
 
-This Wordle Solver is a tool designed to assist in solving [Wordle](https://www.nytimes.com/games/wordle/index.html) puzzles. It helps by analyzing your guesses and providing potential solutions based on the feedback received from the game.
+This Wordle Solver is a tool designed to assist in solving [Wordle](https://www.nytimes.com/games/wordle/index.html) puzzles. It helps by analyzing your guesses and providing potential solutions based on the feedback received from the game - built with a mobile first minimalist aesthetic based on the Wordle website.
+
+Solvr plays Wordle on Hard Mode -  where Any revealed hints must be used in subsequent guesses.
+
+From my own experimentation this seems to solve the puzzle in around 3.5 guesses on average.
 
 ## How It Works
 
@@ -16,36 +20,42 @@ The programme then iterates through the user's input, taking the index, letter, 
 - **Yellow Letters**: Letters marked as yellow (in the word but not in the correct position) are removed from their current position-specific array and added to a separate list of confirmed letters. This list ensures that the letter must appear somewhere in the word but not in its current position.
 - **Green Letters**: Letters marked as green (correct position) are set as the only option for their respective position-specific arrays, making them fixed for that position.
 
-
 **Filtering**: The tool filters the list of potential words by ensuring that each word matches the remaining valid options for each position and contains all confirmed letters in the correct spots.
 
-**Guessing**: Use the list of filtered possible words to make your next guess, and continue to refine the list based on subsequent feedback.
+**Guessing**: The tool uses the filtered list of possible words to make the next guess. It first counts the most common letters in the remaining words and prioritizes those with higher frequency letters, such as 'E', over those with less common letters, like 'Z'. The words are then grouped into sets of anagrams to avoid redundancy in suggestions. For example, 'Arose', 'Aeros', and 'Soare' would be grouped together, as they provide the same information about the letters. This grouping allows the UI to display a wider variety of suggestions for the user to choose from.
+
+## Tech Stack
+Solvr is built using the following technologies:
+
+**Next.js:** A React framework for server-side rendering and building static websites.
+**TypeScript:** A superset of JavaScript that adds static types, enhancing code quality and maintainability. TypeScript is used due to the large dataset handled by Solvr, ensuring a consistent approach to type safety as data is processed and passed through components and functions.
+
+Solvr is hosted using Vercel, which offers seamless integration with Next.js. Vercel provides easy to use speed insights and analytics, helping to optimise performance and ensure a smooth user experience.
 
 ## Installation
 
-To run the development server, use one of the following commands:
-
+1. Clone the Repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/Fordcois/wordle-solver.git
 ```
 
-Then, open http://localhost:3000 in your browser to see the tool in action.
+2. Install Dependencies
+```bash
+npm install
+```
 
-## Future Development
+3. Start the Development Server
+```bash
+npm run dev
+```
 
-**Styling:** Improve the user interface with better styling. While the tool functions correctly, a more polished appearance is desired.
+4. Open http://localhost:3000 in your browser to see the application in action.
 
-**Guess Tracking:** Implement functionality to track the number of attempts and notify the user if they have exceeded the maximum allowed guesses.
+## Future Discussion Points
 
-**Input Validation:** Enhance input validation to prevent errors, such as accepting green letters that were previously marked as gray.
+**Word List Optimization:** The theory behind the filtering is sound and, based on numbers, offers the best guess available. However, there is a certain 'human' element that is missing. There are certain words within the list that, while valid, are very obscure. The chances of these words being selected by a game's editor as the answer for the day are limited.
 
-**Word List Optimization:** Organize the word list by letter frequency and the number of unique letters. Currently, the front-end sorts by unique letters, but pre-sorting the dataset could optimize filtering.
+I'm reluctant to manually remove these 'unlikely' words from the dataset as I feel this diminishes the point of the tool. Additionally, for early guesses, these obscure words can actually provide more accuracy when moving into later guesses.
 
 ## Credits
 
